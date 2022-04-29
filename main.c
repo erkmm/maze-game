@@ -42,7 +42,7 @@ void canavar_hareket_0();
 int main(int argc, char **argv) {
     char move ;
     int i = 0;
-    printf("zorluk secin 0 || 1\n");
+    printf("zorluk secin 0 veya 1\n");
     scanf("seviye %d",i);
     karakter_olustur();
     canavar_olustur();
