@@ -2,11 +2,30 @@
 #include <stdio.h>
 #include <time.h>
 #include <math.h>
+#include <stdbool.h>
 
+const int harita[16][16] = {
+        {5, 4, 4, 4, 4, 4, 4, 4, 1, 4, 4, 4, 4, 4, 4, 5},
+        {5, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 5},
+        {5, 0, 1, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 1, 0, 5},
+        {5, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 5},
+        {5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 5},
+        {5, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 5},
+        {5, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 5},
+        {6, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 5},
+        {5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 5},
+        {5, 0, 0, 1, 1, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 5},
+        {5, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 5},
+        {5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 5},
+        {5, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 5},
+        {5, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 5},
+        {5, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 5},
+        {5, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 5},
+};
 typedef struct string string;
 int satir_sayisi = 16;
 int sutun_sayisi = 16;
-
+char move;
 int karakter[2];
 int canavar[2];
 int engel_c = 27;
@@ -27,32 +46,33 @@ void canavar_sag();
 
 void canavar_sol();
 
-void harita_olustur();
-
 void karakter_olustur();
 
 void canavar_olustur();
-
-void engel_olustur();
 
 void harita_goster();
 
 void canavar_hareket_0();
 
+void canavar_hareket_1();
+
 int main(int argc, char **argv) {
-    char move ;
-    int i = 0;
+    char move;
+    int i, k, t;
     printf("zorluk secin 0 veya 1\n");
-    scanf("seviye %d",i);
+    scanf("%d", &i);
     karakter_olustur();
     canavar_olustur();
+    bool bitir=false;
+    do{
     while (1) {
-
         harita_goster();
+        //karakter[0] <! 0;
+        //karakter[1] <! 0;
 
-        printf("x[%d] y[%d]\n\n\n", karakter[0]+1, karakter[1]+1);
+        printf("x[%d] y[%d]\n\n\n", karakter[0] + 1, karakter[1] + 1);
         printf("sira sizde\n");//oku
-        scanf("\n%s",&move);// aldıgın cevaba göre fonksiyon  capır
+        scanf("\n%s", &move);// aldıgın cevaba göre fonksiyon  capır
 
 
         switch (move) {
@@ -69,54 +89,111 @@ int main(int argc, char **argv) {
                 karakter_sag();
                 break;
         }
-        if (i==0)
-        canavar_hareket_0();
-        if(karakter[1]==7 && karakter[0]==0)
+        if (i == 0) {
+            canavar_hareket_0();
+            if (karakter[1] == canavar[1] + 1 && karakter[0] == canavar[0]) {
+                k = 1;
+                break;
+            } else if (karakter[1] == canavar[1] - 1 && karakter[0] == canavar[0]) {
+                k = 1;
+                break;
+            } else if (karakter[1] == canavar[1] && karakter[0] == canavar[0] + 1) {
+                k = 1;
+                break;
+            } else if (karakter[1] == canavar[1] && karakter[0] == canavar[0] - 1) {
+                k = 1;
+                break;
+            } else if (karakter[1] == canavar[1] + 1 && karakter[0] == canavar[0] - 1) {
+                k = 1;
+                break;
+            } else if (karakter[1] == canavar[1] - 1 && karakter[0] == canavar[0] - 1) {
+                k = 1;
+                break;
+            } else if (karakter[1] == canavar[1] + 1 && karakter[0] == canavar[0] + 1) {
+                k = 1;
+                break;
+            } else if (karakter[1] == canavar[1] - 1 && karakter[0] == canavar[0] + 1) {
+                k = 1;
+                break;
+            }
+        } else if (i == 1) {
+            canavar_hareket_1();
+            if (karakter[1] == canavar[1] + 1 && karakter[0] == canavar[0]) {
+                k = 1;
+                break;
+            } else if (karakter[1] == canavar[1] - 1 && karakter[0] == canavar[0]) {
+                k = 1;
+                break;
+            } else if (karakter[1] == canavar[1] && karakter[0] == canavar[0] + 1) {
+                k = 1;
+                break;
+            } else if (karakter[1] == canavar[1] && karakter[0] == canavar[0] - 1) {
+                k = 1;
+                break;
+            } else if (karakter[1] == canavar[1] + 1 && karakter[0] == canavar[0] - 1) {
+                k = 1;
+                break;
+            } else if (karakter[1] == canavar[1] - 1 && karakter[0] == canavar[0] - 1) {
+                k = 1;
+                break;
+            } else if (karakter[1] == canavar[1] + 1 && karakter[0] == canavar[0] + 1) {
+                k = 1;
+                break;
+            } else if (karakter[1] == canavar[1] - 1 && karakter[0] == canavar[0] + 1) {
+                k = 1;
+                break;
+            }
+        }
+        if (karakter[1] == 7 && karakter[0] == 0)
             break;
         system("cls");
     }
-    printf("\n KAZANDINIZ  \n");
+    if (k == 1)
+        printf("\n\n  KAYBETTINIZ  \n\n");
+    else
+        printf("\n\n  KAZANDINIZ   \n\n");
+
+    printf("\n tekrar baslamak icin 8 girin\n");//tekrar etmek istermsiiniz diye sor
+    scanf("%d",&t);// scanf felan
+    if(t == 9)//
+
+        bitir=false;
+    else if(t == 8)
+        bitir=true;//degilse true
+
+}
+ while (bitir);
     system("pause");
     return 0;
 }
 
 void harita_goster() {
-    int harita[16][16] = {
-            {5, 4, 4, 4, 4, 4, 4, 4, 1, 4, 4, 4, 4, 4, 4, 5},
-            {5, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 5},
-            {5, 0, 1, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 1, 0, 5},
-            {5, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 5},
-            {5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 5},
-            {5, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 5},
-            {5, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 5},
-            {6, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 5},
-            {5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 5},
-            {5, 0, 0, 1, 1, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 5},
-            {5, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 5},
-            {5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 5},
-            {5, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 5},
-            {5, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 5},
-            {5, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 5},
-            {5, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 5},
-    };
-    harita[karakter[1]][karakter[0]]=2;//karakterin pozisyonunu haritaya ekle K karakteri ile gösterir
-    harita[canavar[1]][canavar[0]]=3;//canavarın pozisyonunu haritaya ekle C karakteri ile gösterir
+    printf("\n\n");
+    int gecici_harita[sutun_sayisi][satir_sayisi];
+
+    for (int i = 0; i < sutun_sayisi; ++i) {
+        for (int j = 0; j < satir_sayisi; ++j) {
+            gecici_harita[i][j] = harita[i][j];
+        }
+    }
+
+    gecici_harita[karakter[1]][karakter[0]] = 2;//karakterin pozisyonunu haritaya ekle K karakteri ile gösterir
+    gecici_harita[canavar[1]][canavar[0]] = 3;//canavarın pozisyonunu haritaya ekle C karakteri ile gösterir
 
     for (int i = 0; i < satir_sayisi; ++i) {
         for (int j = 0; j < sutun_sayisi; ++j) {
-            int hucre = harita[i][j];
+            int hucre = gecici_harita[i][j];
             if (hucre == 1) {
                 printf(" w", hucre);
-            }
-            else if (hucre==2){
-                printf(" K",hucre);
-            }else if (hucre==3){
-                printf(" C",hucre);
-            }else if (hucre==4) {
+            } else if (hucre == 2) {
+                printf(" K", hucre);
+            } else if (hucre == 3) {
+                printf(" C", hucre);
+            } else if (hucre == 4) {
                 printf(" -", hucre);
-            }else if (hucre==5) {
+            } else if (hucre == 5) {
                 printf(" |", hucre);
-            }else {
+            } else {
                 printf("  ", hucre);
             }
 
@@ -127,57 +204,100 @@ void harita_goster() {
 }
 
 void karakter_olustur() {
-    karakter[0] = 15;//X
-    karakter[1] = 10;//Y
 
-
+    bool control1 = false;
+    do {
+        srand(time(NULL));
+        karakter[0] = rand() % 16;// X
+        karakter[1] = rand() % 16;// Y
+        int man = abs(karakter[1] - 7) + abs(karakter[0] - 0);
+        control1 = man < 16;
+        printf("%d", control1);
+    } while (control1);
 }
 
 void canavar_olustur() {
-    canavar[0] = 2;
-    canavar[1] = 5;
-
+    do {
+        canavar[0] = rand() % 16;
+        canavar[1] = rand() % 16;
+    } while (abs(karakter[1] - canavar[1]) + abs((karakter[0] - canavar[0])) < 16);
 }
 
 void karakter_yukari() {
+    if (harita[karakter[1] - 1][karakter[0]] == 1)
+        return;
+    if (karakter[1] == 0)
+        return;
     karakter[1]--;
 }
 
 void karakter_asagi() {
+    if (harita[karakter[1] + 1][karakter[0]] == 1)
+        return;
+    if (karakter[1] == 15)
+        return;
     karakter[1]++;
 }
 
 void karakter_sag() {
+    if (harita[karakter[1]][karakter[0] + 1] == 1)
+        return;
+    if (karakter[0] == 15)
+        return;
     karakter[0]++;
 }
 
 void karakter_sol() {
+    if (harita[karakter[1]][karakter[0] - 1] == 1)
+        return;
+    if (karakter[0] == 0)
+        return;
     karakter[0]--;
 }
 
 void canavar_yukari() {
+    if (harita[canavar[1] - 1][canavar[0]] == 1)
+        return;
+    // if (harita[canavar[1] - 1][canavar[0]] == 2)
+
+    if (canavar[1] == 0)
+        return;
     canavar[1]--;
 }
 
 void canavar_asagi() {
+    if (harita[canavar[1] + 1][canavar[0]] == 1)
+        return;
+    //if (harita[canavar[1] + 1][canavar[0]] == 2)
+
+    if (canavar[1] == 15)
+        return;
     canavar[1]++;
 }
 
 void canavar_sag() {
+    if (harita[canavar[1]][canavar[0] + 1] == 1)
+        return;
+    //if (harita[canavar[1]][canavar[0] + 1] == 2)
+
+    if (canavar[0] == 15)
+        return;
     canavar[0]++;
 }
 
 void canavar_sol() {
+    if (harita[canavar[1]][canavar[0] - 1] == 1)
+        return;
+    //if (harita[canavar[1]][canavar[0] - 1] == 2)
+
+    if (canavar[0] == 0)
+        return;
     canavar[0]--;
 }
 
-void engel_olustur() {
-    //toplam engel 27
-
-}
 void canavar_hareket_0() {
     srand(time(NULL));
-    switch (1 + rand()%4){
+    switch (1 + rand() % 4) {
         case 1:
             canavar_yukari();
             break;
@@ -192,3 +312,81 @@ void canavar_hareket_0() {
             break;
     }
 }
+
+void canavar_hareket_1() {
+
+    bool karakter_sag_alt = karakter[1] > canavar[1] && karakter[0] > canavar[0];
+    bool karakter_sol_alt = karakter[1] > canavar[1] && karakter[0] < canavar[0];
+    bool karakter_sag_üst = karakter[1] < canavar[1] && karakter[0] > canavar[0];
+    bool karakter_sol_üst = karakter[1] < canavar[1] && karakter[0] < canavar[0];
+    bool karakter_sag = karakter[1] == canavar[1] && karakter[0] > canavar[0];
+    bool karakter_sol = karakter[1] == canavar[1] && karakter[0] < canavar[0];
+    bool karakter_alt = karakter[1] > canavar[1] && karakter[0] == canavar[0];
+    bool karakter_üst = karakter[1] < canavar[1] && karakter[0] == canavar[0];
+    if(karakter_sag_alt) {
+        switch (rand() % 2){
+            case 0:
+                canavar_asagi();
+                break;
+            case 1:
+                canavar_sag();
+                break;}
+    }
+    else if(karakter_sol_alt) {
+        switch (rand() % 2){
+            case 0:
+                canavar_asagi();
+                break;
+            case 1:
+                canavar_sol();
+                break;}
+    }
+    else if(karakter_sag_üst) {
+        switch (rand() % 2){
+            case 0:
+                canavar_yukari();
+                break;
+            case 1:
+                canavar_sag();
+                break;}
+    }
+    else if(karakter_sol_üst) {
+        switch (rand() % 2){
+            case 0:
+                canavar_yukari();
+                break;
+            case 1:
+                canavar_sol();
+                break;}
+    }
+    else if(karakter_sag) {
+                canavar_sag();}
+
+    else if(karakter_sol) {
+                canavar_sol();}
+
+    else if(karakter_alt) {
+                canavar_asagi();}
+
+    else if(karakter_üst) {
+                canavar_yukari();}
+    }
+
+
+
+    /*int min = abs(karakter[1] - canavar[1] - 1) + abs(karakter[0] - canavar[0]);
+    if (abs(karakter[0] - canavar[0] - 1) + abs(karakter[1] - canavar[1]) <= min)
+        min = abs(karakter[0] - canavar[0] - 1) + abs(karakter[1] - canavar[1]);
+    if (abs(karakter[1] - canavar[1] + 1) + abs(karakter[0] - canavar[0]) <= min)
+        min = abs(karakter[1] - canavar[1] + 1) + abs(karakter[0] - canavar[0]);
+    if (abs(karakter[0] - canavar[0] + 1) + abs(karakter[1] - canavar[1]) <= min)
+        min = abs(karakter[0] - canavar[0] + 1) + abs(karakter[1] - canavar[1]);
+
+    if (min == abs(karakter[1] - canavar[1] - 1) + abs(karakter[0] - canavar[0]))
+        canavar_yukari();
+    else if (min == abs(karakter[0] - canavar[0] - 1) + abs(karakter[1] - canavar[1]))
+        canavar_sag();
+    else if (min == abs(karakter[1] - canavar[1] + 1) + abs(karakter[0] - canavar[0]))
+        canavar_asagi();
+    else if (min == abs(karakter[0] - canavar[0] + 1) + abs(karakter[1] - canavar[1]))
+        canavar_sol();*/
