@@ -59,12 +59,12 @@ void canavar_hareket_1();
 int main(int argc, char **argv) {
     char move;
     int i, k, t;
+    bool bitir=false;
+    do{
     printf("zorluk secin 0 veya 1\n");
     scanf("%d", &i);
     karakter_olustur();
     canavar_olustur();
-    bool bitir=false;
-    do{
     while (1) {
         harita_goster();
         //karakter[0] <! 0;
@@ -115,7 +115,10 @@ int main(int argc, char **argv) {
             } else if (karakter[1] == canavar[1] - 1 && karakter[0] == canavar[0] + 1) {
                 k = 1;
                 break;
-            }
+            } else if (karakter[1] == canavar[1] && karakter[0] == canavar[0]) {
+                k = 1;
+                break;}
+
         } else if (i == 1) {
             canavar_hareket_1();
             if (karakter[1] == canavar[1] + 1 && karakter[0] == canavar[0]) {
@@ -142,7 +145,9 @@ int main(int argc, char **argv) {
             } else if (karakter[1] == canavar[1] - 1 && karakter[0] == canavar[0] + 1) {
                 k = 1;
                 break;
-            }
+            } else if (karakter[1] == canavar[1] && karakter[0] == canavar[0]) {
+                k = 1;
+                break;}
         }
         if (karakter[1] == 7 && karakter[0] == 0)
             break;
@@ -153,13 +158,16 @@ int main(int argc, char **argv) {
     else
         printf("\n\n  KAZANDINIZ   \n\n");
 
-    printf("\n tekrar baslamak icin 8 girin\n");//tekrar etmek istermsiiniz diye sor
-    scanf("%d",&t);// scanf felan
-    if(t == 9)//
+    printf("\n tekrar baslamak icin 8 girin\n");
+    printf("\n bitirmek icin herhangi bir tusa basin");
 
+    scanf("%d",&t);
+
+    if(t == 8){
+        system("cls") ;
+        bitir=true;}
+    else
         bitir=false;
-    else if(t == 8)
-        bitir=true;//degilse true
 
 }
  while (bitir);
@@ -212,7 +220,8 @@ void karakter_olustur() {
         karakter[1] = rand() % 16;// Y
         int man = abs(karakter[1] - 7) + abs(karakter[0] - 0);
         control1 = man < 16;
-        printf("%d", control1);
+        printf("yukleniyor...", control1);
+        system("cls");
     } while (control1);
 }
 
@@ -371,22 +380,3 @@ void canavar_hareket_1() {
     else if(karakter_üst) {
                 canavar_yukari();}
     }
-
-
-
-    /*int min = abs(karakter[1] - canavar[1] - 1) + abs(karakter[0] - canavar[0]);
-    if (abs(karakter[0] - canavar[0] - 1) + abs(karakter[1] - canavar[1]) <= min)
-        min = abs(karakter[0] - canavar[0] - 1) + abs(karakter[1] - canavar[1]);
-    if (abs(karakter[1] - canavar[1] + 1) + abs(karakter[0] - canavar[0]) <= min)
-        min = abs(karakter[1] - canavar[1] + 1) + abs(karakter[0] - canavar[0]);
-    if (abs(karakter[0] - canavar[0] + 1) + abs(karakter[1] - canavar[1]) <= min)
-        min = abs(karakter[0] - canavar[0] + 1) + abs(karakter[1] - canavar[1]);
-
-    if (min == abs(karakter[1] - canavar[1] - 1) + abs(karakter[0] - canavar[0]))
-        canavar_yukari();
-    else if (min == abs(karakter[0] - canavar[0] - 1) + abs(karakter[1] - canavar[1]))
-        canavar_sag();
-    else if (min == abs(karakter[1] - canavar[1] + 1) + abs(karakter[0] - canavar[0]))
-        canavar_asagi();
-    else if (min == abs(karakter[0] - canavar[0] + 1) + abs(karakter[1] - canavar[1]))
-        canavar_sol();*/
