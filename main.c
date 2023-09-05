@@ -326,12 +326,12 @@ void canavar_hareket_1() {
 
     bool karakter_sag_alt = karakter[1] > canavar[1] && karakter[0] > canavar[0];
     bool karakter_sol_alt = karakter[1] > canavar[1] && karakter[0] < canavar[0];
-    bool karakter_sag_üst = karakter[1] < canavar[1] && karakter[0] > canavar[0];
-    bool karakter_sol_üst = karakter[1] < canavar[1] && karakter[0] < canavar[0];
+    bool karakter_sag_ust = karakter[1] < canavar[1] && karakter[0] > canavar[0];
+    bool karakter_sol_ust = karakter[1] < canavar[1] && karakter[0] < canavar[0];
     bool karakter_sag = karakter[1] == canavar[1] && karakter[0] > canavar[0];
     bool karakter_sol = karakter[1] == canavar[1] && karakter[0] < canavar[0];
     bool karakter_alt = karakter[1] > canavar[1] && karakter[0] == canavar[0];
-    bool karakter_üst = karakter[1] < canavar[1] && karakter[0] == canavar[0];
+    bool karakter_ust = karakter[1] < canavar[1] && karakter[0] == canavar[0];
     if(karakter_sag_alt) {
         switch (rand() % 2){
             case 0:
@@ -350,7 +350,7 @@ void canavar_hareket_1() {
                 canavar_sol();
                 break;}
     }
-    else if(karakter_sag_üst) {
+    else if(karakter_sag_ust) {
         switch (rand() % 2){
             case 0:
                 canavar_yukari();
@@ -359,7 +359,7 @@ void canavar_hareket_1() {
                 canavar_sag();
                 break;}
     }
-    else if(karakter_sol_üst) {
+    else if(karakter_sol_ust) {
         switch (rand() % 2){
             case 0:
                 canavar_yukari();
@@ -377,6 +377,6 @@ void canavar_hareket_1() {
     else if(karakter_alt) {
                 canavar_asagi();}
 
-    else if(karakter_üst) {
+    else if(karakter_ust) {
                 canavar_yukari();}
     }
